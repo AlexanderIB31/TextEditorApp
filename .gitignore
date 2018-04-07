@@ -5,5 +5,5 @@
 /.vs/TextEditorApp/v15
 /packages
 /TextEditorApp/obj/Debug
-/TextEditorApp.sln.DotSettings
 *.DotSettings
+/.idea
