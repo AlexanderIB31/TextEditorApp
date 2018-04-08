@@ -11,19 +11,19 @@
 	<DockPanel >
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
-				<MenuItem Header="_New" />
+				<MenuItem Header="_New" Command="{Binding CreateNewCommand}"/>
 				<MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
 				<MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
 				<Separator />
-				<MenuItem Header="Exit" />
+				<MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
 			</MenuItem>
 			<MenuItem Header="_Edit">
-				<MenuItem Header="_Copy" />
-				<MenuItem Header="Cut" />
-				<MenuItem Header="_Paste" />
-				<MenuItem Header="Select all" />
-				<MenuItem Header="_Undo" />
-				<MenuItem Header="_Redo" />
+				<MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
+				<MenuItem Header="Cut" Command="{Binding CutCommand}"/>
+				<MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
+				<MenuItem Header="Select all" Command="{Binding SelectAllCommand}"/>
+				<MenuItem Header="_Undo" Command="{Binding UndoCommand}"/>
+				<MenuItem Header="_Redo" Command="{Binding RedoCommand}"/>
 			</MenuItem>
 		</Menu>
 		<TextBox Text="{Binding Text}"
@@ -31,6 +31,7 @@
                  AcceptsReturn="True" 
                  VerticalScrollBarVisibility="Hidden" 
                  Margin="3"
-		         SpellCheck.IsEnabled="true"/>
+		         SpellCheck.IsEnabled="true"
+		         UndoLimit="10"/>
 	</DockPanel>
 </Window>

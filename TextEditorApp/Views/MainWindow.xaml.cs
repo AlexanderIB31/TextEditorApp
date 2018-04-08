@@ -1,4 +1,5 @@
-﻿using TextEditorApp.ViewModels;
+﻿using System.Windows.Input;
+using TextEditorApp.ViewModels;
 
 namespace TextEditorApp.Views
 {
@@ -9,5 +10,6 @@ namespace TextEditorApp.Views
 			InitializeComponent();
 			DataContext = mainViewModel;
 		}
+
 	}
 }
