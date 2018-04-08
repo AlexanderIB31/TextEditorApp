@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Win32;
 
 namespace TextEditorApp.DAL
@@ -14,10 +9,10 @@ namespace TextEditorApp.DAL
 
 		public bool OpenFileDialog()
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			if (openFileDialog.ShowDialog() == true)
+			var ofd = new OpenFileDialog();
+			if (ofd.ShowDialog() == true)
 			{
-				FilePath = openFileDialog.FileName;
+				FilePath = ofd.FileName;
 				return true;
 			}
 			return false;
@@ -25,10 +20,15 @@ namespace TextEditorApp.DAL
 
 		public bool SaveFileDialog()
 		{
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
-			if (saveFileDialog.ShowDialog() == true)
+			var sfd = new SaveFileDialog
 			{
-				FilePath = saveFileDialog.FileName;
+				Filter = "txt files (*.txt)|*.txt",
+				RestoreDirectory = true
+			};
+
+			if (sfd.ShowDialog() == true)
+			{
+				FilePath = sfd.FileName;
 				return true;
 			}
 			return false;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Net.Mime;
 using System.Runtime.CompilerServices;
-using Microsoft.Win32;
 using TextEditorApp.Annotations;
 using TextEditorApp.Commands;
 using TextEditorApp.DAL;
@@ -15,8 +13,9 @@ namespace TextEditorApp.ViewModels
 		private readonly IDialogProvider _dialogProvider;
 		private string _text = string.Empty;
 		private string _selectedText;
-		private RelayCommand _openCommand;
-		private RelayCommand _saveCommand;
+		private ICommand _openCommand;
+		private ICommand _saveCommand;
+
 		[NotifyPropertyChangedInvocator]
 		private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
 		{
@@ -42,7 +41,7 @@ namespace TextEditorApp.ViewModels
 			}
 		}
 		public event PropertyChangedEventHandler PropertyChanged;
-		public RelayCommand OpenCommand
+		public ICommand OpenCommand
 		{
 			get
 			{
@@ -51,7 +50,7 @@ namespace TextEditorApp.ViewModels
 					   {
 						   try
 						   {
-							   if (_dialogProvider.OpenFileDialog() == true)
+							   if (_dialogProvider.OpenFileDialog())
 							   {
 								   _text = _textProvider.Load(_dialogProvider.FilePath);
 								   _dialogProvider.ShowMessage("Файл открыт");
@@ -61,27 +60,22 @@ namespace TextEditorApp.ViewModels
 						   {
 							   _dialogProvider.ShowMessage(ex.Message);
 						   }
-					   }, obj => true));
+					   }));
 			}
 		}
-		public RelayCommand SaveCommand
+		public ICommand SaveCommand
 		{
 			get
 			{
 				return _saveCommand ??
 					   (_saveCommand = new RelayCommand(obj =>
 					   {
-						   var sfd = new SaveFileDialog
-						   {
-							   Filter = "txt files (*.txt)|*.txt",
-							   RestoreDirectory = true
-						   };
 
-						   if (sfd.ShowDialog() == true)
+						   if (_dialogProvider.SaveFileDialog())
 						   {
-							   _textProvider.Save(sfd.FileName, _text);
+							   _textProvider.Save(_dialogProvider.FilePath, _text);
 						   }
-					   }, obj => true));
+					   }));
 			}
 		}
 

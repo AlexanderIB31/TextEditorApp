@@ -4,8 +4,8 @@ namespace TextEditorApp.ViewModels
 {
 	public interface IMainViewModel
 	{
-		RelayCommand OpenCommand { get; }
-		RelayCommand SaveCommand { get; }
+		ICommand OpenCommand { get; }
+		ICommand SaveCommand { get; }
 		string SelectedText { get; set; }
 		string Text { get; set; }
 	}

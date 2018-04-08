@@ -4,6 +4,7 @@
 
 /.vs/TextEditorApp/v15
 /packages
-/TextEditorApp/obj/Debug
+*/obj
+*/bin
 *.DotSettings
 /.idea
