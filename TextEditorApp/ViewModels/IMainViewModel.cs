@@ -10,7 +10,7 @@ namespace TextEditorApp.ViewModels
 		ICommand UndoCommand { get; }
 		ICommand RedoCommand { get; }
 		ICommand ExitCommand { get; }
-		ICommand CreateNewCommand { get; }
+		ICommand NewCommand { get; }
 		ICommand CutCommand { get; }
 		ICommand CopyCommand { get; }
 		ICommand PasteCommand { get; }

@@ -1,4 +1,5 @@
 ﻿using StructureMap;
+using TextEditorApp.BLL;
 using TextEditorApp.DAL;
 using TextEditorApp.ViewModels;
 using TextEditorApp.Views;
@@ -15,7 +16,7 @@ namespace TextEditorApp
 				scan.WithDefaultConventions();
 			});
 			For<ITextProvider>().Use<TextProvider>();
-			For<IDialogProvider>().Use<DialogProvider>();
+			For<IDialogService>().Use<DialogService>();
 			For<IMainViewModel>().Use<MainViewModel>();
 			ForConcreteType<MainWindow>().Configure.Singleton();
 		}

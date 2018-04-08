@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using Microsoft.Win32;
 
-namespace TextEditorApp.DAL
+namespace TextEditorApp.BLL
 {
-	public class DialogProvider : IDialogProvider
+	public class DialogService : IDialogService
 	{
 		public string FilePath { get; set; }
 

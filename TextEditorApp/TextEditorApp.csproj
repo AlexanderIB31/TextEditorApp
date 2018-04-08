@@ -61,8 +61,8 @@
     </Compile>
     <Compile Include="AppRegistry.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="DAL\DialogProvider.cs" />
-    <Compile Include="DAL\IDialogProvider.cs" />
+    <Compile Include="BLL\DialogService.cs" />
+    <Compile Include="BLL\IDialogService.cs" />
     <Compile Include="DAL\ITextProvider.cs" />
     <Compile Include="DAL\TextProvider.cs" />
     <Compile Include="Properties\Annotations.cs" />

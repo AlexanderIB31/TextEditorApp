@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using TextEditorApp.Annotations;
+using TextEditorApp.BLL;
 using TextEditorApp.Commands;
 using TextEditorApp.DAL;
 
@@ -14,7 +15,8 @@ namespace TextEditorApp.ViewModels
 	public class MainViewModel : INotifyPropertyChanged, IMainViewModel
 	{
 		private readonly ITextProvider _textProvider;
-		private readonly IDialogProvider _dialogProvider;
+		private readonly IDialogService _dialogService;
+		private ICommand _newCommand;
 		private ICommand _openCommand;
 		private ICommand _saveCommand;
 		private ICommand _exitCommand;
@@ -52,21 +54,21 @@ namespace TextEditorApp.ViewModels
 			get
 			{
 				return _openCommand ??
-				       (_openCommand = new RelayCommand(obj =>
-				       {
-					       try
-					       {
-						       if (_dialogProvider.OpenFileDialog())
-						       {
-							       _text = _textProvider.Load(_dialogProvider.FilePath);
-							       _dialogProvider.ShowMessage("Файл открыт");
-						       }
-					       }
-					       catch (Exception ex)
-					       {
-						       _dialogProvider.ShowMessage(ex.Message);
-					       }
-				       }));
+					   (_openCommand = new RelayCommand(obj =>
+					   {
+						   try
+						   {
+							   if (_dialogService.OpenFileDialog())
+							   {
+								   _text = _textProvider.Load(_dialogService.FilePath);
+								   _dialogService.ShowMessage("Файл открыт");
+							   }
+						   }
+						   catch (Exception ex)
+						   {
+							   _dialogService.ShowMessage(ex.Message);
+						   }
+					   }));
 			}
 		}
 		public ICommand SaveCommand
@@ -74,13 +76,13 @@ namespace TextEditorApp.ViewModels
 			get
 			{
 				return _saveCommand ??
-				       (_saveCommand = new RelayCommand(obj =>
-				       {
-					       if (_dialogProvider.SaveFileDialog())
-					       {
-						       _textProvider.Save(_dialogProvider.FilePath, _text);
-					       }
-				       }));
+					   (_saveCommand = new RelayCommand(obj =>
+					   {
+						   if (_dialogService.SaveFileDialog())
+						   {
+							   _textProvider.Save(_dialogService.FilePath, _text);
+						   }
+					   }));
 			}
 		}
 		public ICommand ExitCommand
@@ -88,32 +90,39 @@ namespace TextEditorApp.ViewModels
 			get
 			{
 				return _exitCommand ??
-				       (_exitCommand = new RelayCommand(obj =>
-				       {
-					       var messageBoxResult = MessageBox.Show(Properties.Resources.ResourceManager.GetString("ExitMessage"),
-						       ConfigurationManager.AppSettings["Title"], 
-						       MessageBoxButton.YesNoCancel);
+					   (_exitCommand = new RelayCommand(obj =>
+					   {
+						   var messageBoxResult = MessageBox.Show(Properties.Resources.ResourceManager.GetString("ExitMessage"),
+							   ConfigurationManager.AppSettings["Title"],
+							   MessageBoxButton.YesNoCancel);
 						   if (messageBoxResult == MessageBoxResult.Yes)
 						   {
 							   SaveCommand.Execute(obj);
-						       Application.Current.Shutdown();
-					       }
-				       }));
+							   Application.Current.Shutdown();
+						   }
+					   }));
+			}
+		}
+		public ICommand NewCommand
+		{
+			get
+			{
+				return _newCommand ??
+					   (_newCommand = new RelayCommand(obj => { Text = string.Empty; }));
 			}
 		}
 		public ICommand UndoCommand { get; } = ApplicationCommands.Undo;
 		public ICommand RedoCommand { get; } = ApplicationCommands.Redo;
-		public ICommand CreateNewCommand { get; } = ApplicationCommands.New;
 		public ICommand CutCommand { get; } = ApplicationCommands.Cut;
 		public ICommand CopyCommand { get; } = ApplicationCommands.Copy;
 		public ICommand PasteCommand { get; } = ApplicationCommands.Paste;
 		public ICommand SelectAllCommand { get; } = ApplicationCommands.SelectAll;
-		
 
-		public MainViewModel(ITextProvider textProvider, IDialogProvider dialogProvider)
+
+		public MainViewModel(ITextProvider textProvider, IDialogService dialogService)
 		{
 			_textProvider = textProvider;
-			_dialogProvider = dialogProvider;
+			_dialogService = dialogService;
 		}
 
 	}
