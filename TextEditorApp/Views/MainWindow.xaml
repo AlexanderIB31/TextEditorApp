@@ -30,6 +30,7 @@
                  TextWrapping="Wrap" 
                  AcceptsReturn="True" 
                  VerticalScrollBarVisibility="Hidden" 
-                 Margin="3"/>
+                 Margin="3"
+		         SpellCheck.IsEnabled="true"/>
 	</DockPanel>
 </Window>
