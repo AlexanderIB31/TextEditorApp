@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration;
-using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;

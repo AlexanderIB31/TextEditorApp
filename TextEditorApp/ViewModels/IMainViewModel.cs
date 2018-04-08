@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using TextEditorApp.Commands;
 
 namespace TextEditorApp.ViewModels
 {
