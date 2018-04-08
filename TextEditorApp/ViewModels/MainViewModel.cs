@@ -20,7 +20,6 @@ namespace TextEditorApp.ViewModels
 		private ICommand _saveCommand;
 		private ICommand _exitCommand;
 		private string _text = string.Empty;
-		private string _selectedText;
 
 		[NotifyPropertyChangedInvocator]
 		private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
@@ -35,15 +34,6 @@ namespace TextEditorApp.ViewModels
 			{
 				_text = value;
 				RaisePropertyChanged(nameof(Text));
-			}
-		}
-		public string SelectedText
-		{
-			get => _selectedText;
-			set
-			{
-				_selectedText = value;
-				RaisePropertyChanged(nameof(SelectedText));
 			}
 		}
 		public event PropertyChangedEventHandler PropertyChanged;

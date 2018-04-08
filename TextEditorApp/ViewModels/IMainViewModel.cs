@@ -15,7 +15,6 @@ namespace TextEditorApp.ViewModels
 		ICommand PasteCommand { get; }
 		ICommand SelectAllCommand { get; }
 
-		string SelectedText { get; set; }
 		string Text { get; set; }
 	}
 }
