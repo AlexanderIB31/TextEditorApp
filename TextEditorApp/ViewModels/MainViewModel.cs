@@ -82,11 +82,14 @@ namespace TextEditorApp.ViewModels
 					   (_exitCommand = new RelayCommand(obj =>
 					   {
 						   var messageBoxResult = MessageBox.Show(Properties.Resources.ResourceManager.GetString("ExitMessage"),
-							   ConfigurationManager.AppSettings["Title"],
+							   Properties.Resources.ResourceManager.GetString("Title"),
 							   MessageBoxButton.YesNoCancel);
 						   if (messageBoxResult == MessageBoxResult.Yes)
 						   {
 							   SaveCommand.Execute(obj);
+						   }
+						   if (messageBoxResult != MessageBoxResult.Cancel)
+						   {
 							   Application.Current.Shutdown();
 						   }
 					   }));

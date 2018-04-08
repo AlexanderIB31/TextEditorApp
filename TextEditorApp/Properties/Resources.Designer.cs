@@ -68,5 +68,14 @@ namespace TextEditorApp.Properties {
                 return ResourceManager.GetString("ExitMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextEditorApp.
+        /// </summary>
+        internal static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
     }
 }
