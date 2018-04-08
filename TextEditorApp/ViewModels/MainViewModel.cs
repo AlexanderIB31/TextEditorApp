@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using TextEditorApp.Annotations;
 using TextEditorApp.Commands;
 using TextEditorApp.DAL;
@@ -11,7 +12,7 @@ namespace TextEditorApp.ViewModels
 	{
 		private readonly ITextProvider _textProvider;
 		private readonly IDialogProvider _dialogProvider;
-		private string _text = string.Empty;
+		private string _text = "asdasdasd";
 		private string _selectedText;
 		private ICommand _openCommand;
 		private ICommand _saveCommand;
@@ -70,7 +71,6 @@ namespace TextEditorApp.ViewModels
 				return _saveCommand ??
 					   (_saveCommand = new RelayCommand(obj =>
 					   {
-
 						   if (_dialogProvider.SaveFileDialog())
 						   {
 							   _textProvider.Save(_dialogProvider.FilePath, _text);
@@ -83,6 +83,28 @@ namespace TextEditorApp.ViewModels
 		{
 			_textProvider = textProvider;
 			_dialogProvider = dialogProvider;
+			_saveCommand = new RelayCommand(obj =>
+			{
+				if (_dialogProvider.SaveFileDialog())
+				{
+					_textProvider.Save(_dialogProvider.FilePath, _text);
+				}
+			});
+			_openCommand = new RelayCommand(obj =>
+			{
+				try
+				{
+					if (_dialogProvider.OpenFileDialog())
+					{
+						_text = _textProvider.Load(_dialogProvider.FilePath);
+						_dialogProvider.ShowMessage("Файл открыт");
+					}
+				}
+				catch (Exception ex)
+				{
+					_dialogProvider.ShowMessage(ex.Message);
+				}
+			});
 		}
 
 	}
