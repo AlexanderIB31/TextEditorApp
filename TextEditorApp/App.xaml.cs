@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using StructureMap;
-using TextEditorApp.DAL;
 using TextEditorApp.Views;
 
 namespace TextEditorApp

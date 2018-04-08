@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StructureMap;
+﻿using StructureMap;
 using TextEditorApp.DAL;
 using TextEditorApp.ViewModels;
 using TextEditorApp.Views;
